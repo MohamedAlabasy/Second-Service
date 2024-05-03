@@ -1,0 +1,3 @@
+[submodule "Shared-Service"]
+	path = Shared-Service
+	url = https://github.com/MohamedAlabasy/Shared-Service
