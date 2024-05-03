@@ -1,34 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ParseObjectIdPipe } from 'Shared-Service/src/validators/src/validators/parse-object-id-pipe.validators';
+
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createBrandDto: CreateUserDto) {
+    return await this.userService.create(createBrandDto);
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async getAllUsers() {
+    return await this.userService.getAllUsers();
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  async updateById(@Param('id', ParseObjectIdPipe) id: string, @Body() updateBrandDto: UpdateUserDto) {
+    return await this.userService.updateById(id, updateBrandDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+
+  @Get(':id')
+  async getById(@Param('id', ParseObjectIdPipe) id: string) {
+    return await this.userService.getById(id);
   }
+
 }
