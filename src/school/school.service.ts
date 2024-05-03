@@ -1,26 +1,11 @@
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { CreateSchoolDto } from './dto/create-school.dto';
-import { UpdateSchoolDto } from './dto/update-school.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { SCHOOLS } from 'Shared-Service/src/entities-name';
+import { SchoolDocument } from 'Shared-Service/src/school/entities/school.entity';
 
 @Injectable()
 export class SchoolService {
-  create(createSchoolDto: CreateSchoolDto) {
-    return 'This action adds a new school';
-  }
+  constructor(@InjectModel(SCHOOLS) readonly userModel: Model<SchoolDocument>) { }
 
-  findAll() {
-    return `This action returns all school`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} school`;
-  }
-
-  update(id: number, updateSchoolDto: UpdateSchoolDto) {
-    return `This action updates a #${id} school`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} school`;
-  }
 }
